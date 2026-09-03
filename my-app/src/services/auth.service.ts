@@ -1,31 +1,19 @@
 import apiClient from "../lib/api";
-import { User } from "../types";
-
-interface RegisterData {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-}
-
-interface LoginData {
-  email: string;
-  password: string;
-}
-
-interface AuthResponse {
-  user: User;
-  accessToken: string;
-}
+import { AuthResponse } from "../types";
 
 export const authService = {
-  register: (data: RegisterData) =>
+  register: (data: {
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+  }) =>
     apiClient.post<{ success: boolean; data: AuthResponse }>(
       "/auth/register",
       data,
     ),
 
-  login: (data: LoginData) =>
+  login: (data: { email: string; password: string }) =>
     apiClient.post<{ success: boolean; data: AuthResponse }>(
       "/auth/login",
       data,
