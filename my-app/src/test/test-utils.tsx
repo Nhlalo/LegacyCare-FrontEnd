@@ -9,9 +9,12 @@ export function createTestQueryClient() {
         retry: false,
         staleTime: 0,
         gcTime: 0,
+
+        throwOnError: false, // Important: Don't throw errors for tests
       },
       mutations: {
         retry: false,
+        throwOnError: false,
       },
     },
   });
@@ -31,3 +34,19 @@ export function createWrapper(queryClient?: QueryClient) {
     );
   };
 }
+
+export const mockLocalStorage = (() => {
+  let store: Record<string, string> = {};
+  return {
+    getItem: vi.fn((key: string) => store[key] || null),
+    setItem: vi.fn((key: string, value: string) => {
+      store[key] = value;
+    }),
+    removeItem: vi.fn((key: string) => {
+      delete store[key];
+    }),
+    clear: vi.fn(() => {
+      store = {};
+    }),
+  };
+})();
