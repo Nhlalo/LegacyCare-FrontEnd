@@ -1,4 +1,3 @@
-// src/components/layout/__tests__/Header.test.tsx
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Header } from "../Header";
@@ -34,8 +33,6 @@ describe("Header", () => {
     const user = userEvent.setup();
     render(<Header />);
 
-    // ✅ Find the avatar trigger by its text content "JD"
-    // The DropdownMenuTrigger has the initials as its accessible name
     const avatarTrigger = screen.getByRole("button", { name: "JD" });
     await user.click(avatarTrigger);
 
@@ -51,11 +48,9 @@ describe("Header", () => {
     const user = userEvent.setup();
     render(<Header />);
 
-    // ✅ Open the dropdown
     const avatarTrigger = screen.getByRole("button", { name: "JD" });
     await user.click(avatarTrigger);
 
-    // ✅ Click Log out
     await waitFor(() => {
       expect(screen.getByText("Log out")).toBeInTheDocument();
     });
