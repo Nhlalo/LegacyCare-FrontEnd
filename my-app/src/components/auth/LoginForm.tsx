@@ -1,11 +1,9 @@
-// frontend/src/components/auth/LoginForm.tsx
 "use client";
 
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useAuth } from "@/hooks/useAuth";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
