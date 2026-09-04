@@ -80,5 +80,4 @@ export class CaseService implements ICaseService {
   }
 }
 
-// ✅ Singleton instance for production
 export const caseService = new CaseService(apiClient);
