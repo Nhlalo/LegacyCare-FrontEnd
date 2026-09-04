@@ -1,9 +1,10 @@
-// frontend/src/hooks/useAuth.ts
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { authService } from "../services/auth.service";
 import { useRouter } from "next/navigation";
 import { User } from "../types";
 import { toast } from "sonner";
+
+const isDev = process.env.NODE_ENV === "development";
 
 export const authKeys = {
   user: ["user"] as const,
@@ -33,6 +34,9 @@ export function useAuth() {
       router.push("/dashboard");
     },
     onError: (error: any) => {
+      if (isDev) {
+        console.error("Login error:", error);
+      }
       toast.error("Login failed");
     },
   });
@@ -46,6 +50,9 @@ export function useAuth() {
       router.push("/login");
     },
     onError: (error: any) => {
+      if (isDev) {
+        console.error("Registeration error:", error);
+      }
       toast.error("Registration failed");
     },
   });
