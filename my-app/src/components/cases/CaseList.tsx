@@ -1,17 +1,19 @@
-// frontend/src/components/cases/CaseList.tsx
 import { Case } from "@/types";
 import { CaseCard } from "./CaseCard";
+import { cn } from "@/lib/utils";
 
 interface CaseListProps {
   cases: Case[];
   isLoading?: boolean;
   emptyMessage?: string;
+  className?: string;
 }
 
 export function CaseList({
   cases,
   isLoading,
   emptyMessage = "No cases found",
+  className,
 }: CaseListProps) {
   if (isLoading) {
     return (
@@ -33,7 +35,7 @@ export function CaseList({
   }
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div className={cn("grid gap-4 md:grid-cols-2 lg:grid-cols-3", className)}>
       {cases.map((caseData) => (
         <CaseCard key={caseData.id} caseData={caseData} />
       ))}
