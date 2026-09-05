@@ -30,7 +30,7 @@ const roleColors = {
 
 interface StaffListProps {
   staff: Staff[];
-  onUpdateRole: (staffId: string, role: string) => void;
+  onUpdateRole: ({ staffId, role }: { staffId: string; role: string }) => void;
   onRemove: (staffId: string) => void;
   onReactivate: (staffId: string) => void;
   isUpdating: boolean;
@@ -116,19 +116,34 @@ export function StaffList({
                       {member.role !== "OWNER" && (
                         <>
                           <DropdownMenuItem
-                            onClick={() => onUpdateRole(member.id, "MANAGER")}
+                            onClick={() =>
+                              onUpdateRole({
+                                staffId: member.id,
+                                role: "MANAGER",
+                              })
+                            }
                             disabled={isUpdating}
                           >
                             Set as Manager
                           </DropdownMenuItem>
                           <DropdownMenuItem
-                            onClick={() => onUpdateRole(member.id, "STAFF")}
+                            onClick={() =>
+                              onUpdateRole({
+                                staffId: member.id,
+                                role: "STAFF",
+                              })
+                            }
                             disabled={isUpdating}
                           >
                             Set as Staff
                           </DropdownMenuItem>
                           <DropdownMenuItem
-                            onClick={() => onUpdateRole(member.id, "LIMITED")}
+                            onClick={() =>
+                              onUpdateRole({
+                                staffId: member.id,
+                                role: "LIMITED",
+                              })
+                            }
                             disabled={isUpdating}
                           >
                             Set as Limited
