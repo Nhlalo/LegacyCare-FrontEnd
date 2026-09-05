@@ -20,6 +20,14 @@ export function useCases(service: ICaseService = caseService) {
     queryFn: () => service.getCases(),
   });
 
+  const useCase = (id: string) => {
+    return useQuery({
+      queryKey: caseKeys.detail(id),
+      queryFn: () => service.getCase(id),
+      enabled: !!id,
+    });
+  };
+
   const createAtNeed = useMutation({
     mutationFn: service.createAtNeed,
     onSuccess: () => {
@@ -108,6 +116,7 @@ export function useCases(service: ICaseService = caseService) {
     cases: data || [],
     isLoading,
     error,
+    useCase,
     createAtNeed: createAtNeed.mutate,
     isCreatingAtNeed: createAtNeed.isPending,
     createPreNeed: createPreNeed.mutate,
