@@ -10,6 +10,7 @@ export const caseKeys = {
   list: () => [...caseKeys.lists()] as const,
   details: () => [...caseKeys.all, "detail"] as const,
   detail: (id: string) => [...caseKeys.details(), id] as const,
+  family: (token: string) => [...caseKeys.all, "family", token] as const,
 };
 
 export function useCases(service: ICaseService = caseService) {
@@ -25,6 +26,15 @@ export function useCases(service: ICaseService = caseService) {
       queryKey: caseKeys.detail(id),
       queryFn: () => service.getCase(id),
       enabled: !!id,
+    });
+  };
+
+  const useFamilyCase = (token: string) => {
+    return useQuery({
+      queryKey: caseKeys.family(token),
+      queryFn: () => service.getCaseByToken(token),
+      enabled: !!token,
+      retry: false,
     });
   };
 
@@ -117,6 +127,7 @@ export function useCases(service: ICaseService = caseService) {
     isLoading,
     error,
     useCase,
+    useFamilyCase,
     createAtNeed: createAtNeed.mutate,
     isCreatingAtNeed: createAtNeed.isPending,
     createPreNeed: createPreNeed.mutate,
