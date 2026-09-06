@@ -6,6 +6,7 @@ export interface User {
   isEmailVerified: boolean;
   createdAt: string;
   updatedAt?: string;
+  funeralHomeId?: string;
 }
 
 export interface FuneralHome {
