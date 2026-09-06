@@ -5,6 +5,7 @@ import { Case } from "@/types";
 export interface ICaseService {
   getCases(): Promise<Case[]>;
   getCase(id: string): Promise<Case>;
+  getCaseByToken(token: string): Promise<Case>;
   createAtNeed(data: any): Promise<Case>;
   createPreNeed(data: any): Promise<Case>;
   updateCase(id: string, data: any): Promise<Case>;
@@ -28,6 +29,14 @@ export class CaseService implements ICaseService {
     const response = await this.apiClient.get<{ success: boolean; data: Case }>(
       `/cases/${id}`,
     );
+    return response.data;
+  }
+
+  async getCaseByToken(token: string): Promise<Case> {
+    const response = await this.apiClient.get<{
+      success: boolean;
+      data: Case;
+    }>(`/cases/public/${token}`);
     return response.data;
   }
 
