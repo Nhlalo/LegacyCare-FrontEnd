@@ -31,7 +31,13 @@ export function useAuth() {
       localStorage.setItem("accessToken", accessToken);
       queryClient.setQueryData(authKeys.user, user);
       toast.success("Welcome back!");
-      router.push("/dashboard");
+
+      const hasFuneralHome = user.funeralHomeId;
+      if (hasFuneralHome) {
+        router.push("/dashboard");
+      } else {
+        router.push("/setup/funeral-home");
+      }
     },
     onError: (error: any) => {
       if (isDev) {
